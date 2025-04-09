@@ -34,4 +34,5 @@ public class ItemRewardImpl implements IReward {
             }
         }
     }
+
 }

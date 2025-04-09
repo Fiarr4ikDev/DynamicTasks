@@ -13,4 +13,5 @@ public interface IReward {
      * @param player игрок, которому выдается награда
      */
     void giveReward(Player player);
+
 }
