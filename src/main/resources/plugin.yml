@@ -1,0 +1,4 @@
+name: Dynamic Tasks
+version: '${project.version}'
+main: com.fiarr4ikdev.dynamictasks.DynamicTasks
+api-version: '1.16'
