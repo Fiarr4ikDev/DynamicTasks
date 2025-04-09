@@ -1,5 +1,6 @@
 package com.fiarr4ikdev.dynamictasks.reward;
 
+import com.fiarr4ikdev.dynamictasks.service.ChatService;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -10,9 +11,11 @@ import org.bukkit.potion.PotionEffect;
 public class PotionEffectRewardImpl implements IReward {
 
     private final PotionEffect effect;
+    private final ChatService chatService;
 
-    public PotionEffectRewardImpl(PotionEffect effect) {
+    public PotionEffectRewardImpl(PotionEffect effect, ChatService chatService) {
         this.effect = effect;
+        this.chatService = chatService;
     }
 
     /**
@@ -23,7 +26,7 @@ public class PotionEffectRewardImpl implements IReward {
     @Override
     public void giveReward(Player player) {
         player.addPotionEffect(effect);
-        player.sendMessage(ChatColor.GOLD + "Вы получили эффект зелья: " + effect.getType().getName().toLowerCase());
+        chatService.sendMessage(player, ChatColor.GOLD + "Вы получили эффект зелья: " + effect.getType().getName().toLowerCase());
     }
 
 }

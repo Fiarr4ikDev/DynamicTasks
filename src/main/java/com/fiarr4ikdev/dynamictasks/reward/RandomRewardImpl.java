@@ -1,5 +1,6 @@
 package com.fiarr4ikdev.dynamictasks.reward;
 
+import com.fiarr4ikdev.dynamictasks.service.ChatService;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -12,9 +13,11 @@ import java.util.Random;
 public class RandomRewardImpl implements IReward {
 
     private final List<IReward> rewards;
+    private final ChatService chatService;
 
-    public RandomRewardImpl(List<IReward> rewards) {
+    public RandomRewardImpl(List<IReward> rewards, ChatService chatService) {
         this.rewards = rewards;
+        this.chatService = chatService;
     }
 
     /**
@@ -25,13 +28,13 @@ public class RandomRewardImpl implements IReward {
     @Override
     public void giveReward(Player player) {
         if (rewards.isEmpty()) {
-            player.sendMessage("Список наград пуст.");
+            chatService.sendMessage(player, "Список наград пуст.");
             return;
         }
 
         IReward randomReward = rewards.get(new Random().nextInt(rewards.size()));
         randomReward.giveReward(player);
-        player.sendMessage(ChatColor.GOLD + "Вы получили случайную награду!");
+        chatService.sendMessage(player, ChatColor.GOLD + "Вы получили случайную награду!");
     }
 
 }

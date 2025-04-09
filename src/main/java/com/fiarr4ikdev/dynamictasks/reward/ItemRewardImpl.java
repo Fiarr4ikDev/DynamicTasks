@@ -1,5 +1,6 @@
 package com.fiarr4ikdev.dynamictasks.reward;
 
+import com.fiarr4ikdev.dynamictasks.service.ChatService;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -12,9 +13,11 @@ import java.util.Map;
 public class ItemRewardImpl implements IReward {
 
     private final List<ItemStack> items;
+    private final ChatService chatService;
 
-    public ItemRewardImpl(List<ItemStack> items) {
+    public ItemRewardImpl(List<ItemStack> items, ChatService chatService) {
         this.items = items;
+        this.chatService = chatService;
     }
 
     /**
@@ -29,7 +32,7 @@ public class ItemRewardImpl implements IReward {
         for (ItemStack item : items) {
             Map<Integer, ItemStack> remainingItems = player.getInventory().addItem(item);
             if (!remainingItems.isEmpty()) {
-                player.sendMessage(ChatColor.RED + "Инвентарь заполнен! Некоторые предметы были выброшены на землю.");
+                chatService.sendMessage(player, ChatColor.RED + "Инвентарь заполнен! Некоторые предметы были выброшены на землю.");
                 remainingItems.values().forEach(remainingItem -> player.getWorld().dropItem(player.getLocation(), remainingItem));
             }
         }

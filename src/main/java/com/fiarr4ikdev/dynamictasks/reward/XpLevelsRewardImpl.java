@@ -1,5 +1,6 @@
 package com.fiarr4ikdev.dynamictasks.reward;
 
+import com.fiarr4ikdev.dynamictasks.service.ChatService;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -9,9 +10,11 @@ import org.bukkit.entity.Player;
 public class XpLevelsRewardImpl implements IReward {
 
     private final int levels;
+    private final ChatService chatService;
 
-    public XpLevelsRewardImpl(int levels) {
+    public XpLevelsRewardImpl(int levels, ChatService chatService) {
         this.levels = levels;
+        this.chatService = chatService;
     }
 
     /**
@@ -22,7 +25,7 @@ public class XpLevelsRewardImpl implements IReward {
     @Override
     public void giveReward(Player player) {
         player.setLevel(player.getLevel() + levels);
-        player.sendMessage(ChatColor.GREEN + "Вы получили " + levels + " уровней опыта!");
+        chatService.sendMessage(player, ChatColor.GREEN + "Вы получили " + levels + " уровней опыта!");
     }
 
 }
