@@ -11,16 +11,21 @@ import java.util.Map;
  */
 public class ItemRewardImpl implements IReward {
 
+    private final List<ItemStack> items;
+
+    public ItemRewardImpl(List<ItemStack> items) {
+        this.items = items;
+    }
+
     /**
      * Выдает награду игроку в виде списка предметов.
-     * Остальные предметы добавляются в инвентарь.
+     * Все предметы добавляются в инвентарь.
      * Если инвентарь полон, оставшиеся предметы выбрасываются на землю.
      *
      * @param player игрок, которому выдается награда
-     * @param items  список предметов, которые будут выданы как награда
      */
     @Override
-    public void giveReward(Player player, List<ItemStack> items) {
+    public void giveReward(Player player) {
         for (ItemStack item : items) {
             Map<Integer, ItemStack> remainingItems = player.getInventory().addItem(item);
             if (!remainingItems.isEmpty()) {
