@@ -9,8 +9,14 @@ import java.util.Random;
 
 public class InventoryService {
 
+    private final ConfigService configService;
+
+    public InventoryService(ConfigService configService) {
+        this.configService = configService;
+    }
+
     public Inventory getInventory() {
-        Inventory inventory = Bukkit.createInventory(null, 27, "Inventory");
+        Inventory inventory = Bukkit.createInventory(null, 27, configService.getConfig().getString("crate.inventory_name"));
         for (int i = 0; i <= 11; i++) {
             Random r = new Random();
             int index = r.nextInt(inventory.getSize());

@@ -1,13 +1,12 @@
 package com.fiarr4ikdev.dynamictasks.reward;
 
-import com.fiarr4ikdev.dynamictasks.utils.ICrate;
+import com.fiarr4ikdev.dynamictasks.service.ConfigService;
 import com.fiarr4ikdev.dynamictasks.service.ChatService;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,9 +15,11 @@ import java.util.List;
 public class CrateRewardImpl implements IReward {
 
     private final ChatService chatService;
+    private final ConfigService configService;
 
-    public CrateRewardImpl(ChatService chatService) {
+    public CrateRewardImpl(ChatService chatService, ConfigService configService) {
         this.chatService = chatService;
+        this.configService = configService;
     }
 
     /**
@@ -42,9 +43,8 @@ public class CrateRewardImpl implements IReward {
         ItemStack crate = new ItemStack(Material.BARREL);
         ItemMeta crateMeta = crate.getItemMeta();
         assert crateMeta != null;
-        crateMeta.setDisplayName(chatService.color(ICrate.NAME));
-        List<String> lore = new ArrayList<>();
-        lore.add("Получено с квестов");
+        crateMeta.setDisplayName(chatService.color(configService.getConfig().getString("crate.name")));
+        List<String> lore = configService.getConfig().getStringList("crate.lore");
         crateMeta.setLore(lore);
         crate.setItemMeta(crateMeta);
         //TODO
