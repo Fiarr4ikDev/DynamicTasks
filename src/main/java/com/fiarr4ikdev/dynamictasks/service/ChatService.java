@@ -19,7 +19,7 @@ public class ChatService {
      * Метод, который преобразует hex коды текста в цветной текст.
      * @param from текст который надо преобразовать
      */
-    private String color(String from) {
+    public String color(String from) {
         Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
         for (Matcher matcher = pattern.matcher(from); matcher.find(); matcher = pattern.matcher(from)) {
             String hexCode = from.substring(matcher.start(), matcher.end());
