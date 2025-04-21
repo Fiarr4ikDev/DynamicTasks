@@ -15,7 +15,7 @@ public final class DynamicTasks extends JavaPlugin {
         ConfigService configService = new ConfigService(this);
         InventoryService inventoryService = new InventoryService(configService);
         CrateRewardImpl crateReward = new CrateRewardImpl(chatService, configService);
-        getServer().getPluginManager().registerEvents(new CrateHandler(crateReward, inventoryService), this);
+        getServer().getPluginManager().registerEvents(new CrateHandler(crateReward, inventoryService, configService), this);
     }
 
     @Override
